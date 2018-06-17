@@ -1,0 +1,1 @@
+Get-Process | Where-Object {$_.processname -cmatch "mspaint"}|Stop-Process
