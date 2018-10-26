@@ -1,0 +1,5 @@
+https://www.get-digital-help.com/2009/09/28/extract-all-rows-from-a-range-that-meet-criteria-in-one-column-in-excel/
+
+=INDEX($B$3:$E$12, SMALL(IF((INDEX($B$3:$E$12, , $D$16)<=$D$15)*(INDEX($B$3:$E$12, , $D$16)>=$D$14), MATCH(ROW($B$3:$E$12), ROW($B$3:$E$12)), ""), ROWS(B20:$B$20)), COLUMNS($A$1:A1))
+
+https://youtu.be/aMHxQ7TVlzc
