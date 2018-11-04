@@ -1,0 +1,11 @@
+#this collects all data per sheets
+Master sheet
+=ArrayFormula(QUERY({'data-1'!B3:G;'data-2'!B3:G},"select * where Col1 is not null or Col2 is not null or Col3 is not null or Col4 is not null or Col5 is not null or Col6 is not null",0))
+
+Lookup sheet
+-----PE	PE2	=COUNTIF(master!E3:E,C2)
+-----PE NNI	NNI-4	=COUNTIF(master!F4:F,C3)
+-----Count	=COUNTIFS(master!$E$3:$E,$C$2,master!$F$3:$F,$C$3)	
+
+#this filters the master sheet
+=FILTER(master!B3:G,(ISBLANK(C2)+(master!E3:E=C2))*(ISBLANK(C3)+(master!F3:F=C3)))
