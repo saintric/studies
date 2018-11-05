@@ -9,3 +9,6 @@ Lookup sheet
 
 #this filters the master sheet
 =FILTER(master!B3:G,(ISBLANK(C2)+(master!E3:E=C2))*(ISBLANK(C3)+(master!F3:F=C3)))
+
+###alteration
+=FILTER(Master!B3:N,(ISBLANK(C13)+(Master!H3:H=C13))*(ISBLANK(C14)+(Master!I3:I=C14)))
