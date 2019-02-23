@@ -1,0 +1,19 @@
+function pre-check_v3 {
+        #getting the list of files
+        $files = Get-ChildItem *.txt
+        #map the file name to a new name
+        $file_map = @()
+        foreach ($file in $files) {
+            $file_map += @{
+                OldName = $file.Fullname
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| select -First 1)
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-childitem -Path *.txt | foreach {Rename-Item $_.fullname $_.name.replace($_.basename,(Get-Content $_ | Select-String -pattern '#show version'))})
+                NewName = Get-Content $file.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_pre-check.txt'}
+
+            }
+        }
+        #converts the name here
+        $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
+        }
