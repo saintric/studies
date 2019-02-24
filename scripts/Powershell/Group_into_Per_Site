@@ -10,3 +10,8 @@ Get-ChildItem  | foreach{
                      # Note that when powershell sees a variable inside a double quoted string, 
                      # it automatically expands its value into the resulting string.
 }
+
+
+
+#reference
+#https://superuser.com/questions/348956/powershell-get-inital-character-string-from-file-name-and-create-directory-from
