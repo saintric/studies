@@ -1,0 +1,56 @@
+function get_all { pre-check_v3 ; post-check_v3 ; collect_per_sites }
+
+function pre-check_v3 {
+        #getting the list of files
+        $files = Get-ChildItem *.txt
+        #map the file name to a new name
+        $file_map = @()
+        foreach ($file in $files) {
+            $file_map += @{
+                OldName = $file.Fullname
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| select -First 1)
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-childitem -Path *.txt | foreach {Rename-Item $_.fullname $_.name.replace($_.basename,(Get-Content $_ | Select-String -pattern '#show version'))})
+                NewName = Get-Content $file.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_pre-check.txt'}
+
+            }
+        }
+        #converts the name here
+        $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
+        }
+
+function post-check_v3 {
+        #getting the list of files
+        $files = Get-ChildItem *.txt
+        #map the file name to a new name
+        $file_map = @()
+        foreach ($file in $files) {
+            $file_map += @{
+                OldName = $file.Fullname
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| select -First 1)
+                #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-Content $file.Fullname| Select-String -pattern '#show version')
+                #NewName = $(Get-childitem -Path *.txt | foreach {Rename-Item $_.fullname $_.name.replace($_.basename,(Get-Content $_ | Select-String -pattern '#show version'))})
+                NewName = Get-Content $file.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_post-check.txt'}
+
+            }
+        }
+        #converts the name here
+        $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
+        }
+
+function collect_per_sites {# this will group pre/post checks per sites
+Get-ChildItem | foreach{ 
+    $id = $_.Name.SubString(0,5); # Get the id from the first 5 characters. 
+                                  # Note that the $_ variable is an automatic variable populated by powershell that represents the current file. 
+                                  # The Name property of the object returns a .NET String object which has a SubString member function 
+                                  # that you can use to return the portion of the filename you are interested in.
+    if(-not (Test-Path $id)) {mkdir $id}; # Check if the "id" directory already exists. 
+                                          # If it doesn't, create it (mkdir is an alias for New-Item).
+    mv $_ "$id\$_";}  # Then move the file into the directory (mv is an alias for Move-Item). 
+                     # Note that when powershell sees a variable inside a double quoted string, 
+                     # it automatically expands its value into the resulting string.
+    #Get-Content *pre-check* | Set-Content " pre-check.txt";  # this append pre checks to one file for WinMerge validation
+    #Get-Content *post-check* | Set-Content "$id post-check.txt";} # this append post checks to one file for WinMerge validation
+}
