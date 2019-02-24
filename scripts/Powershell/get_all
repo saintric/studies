@@ -1,44 +1,43 @@
 function get_all { pre-check_v3 ; post-check_v3 ; collect_per_sites }
 
+
 function pre-check_v3 {
-        #getting the list of files
-        $files = Get-ChildItem *.txt
-        #map the file name to a new name
-        $file_map = @()
-        foreach ($file in $files) {
-            $file_map += @{
-                OldName = $file.Fullname
+        $files_pre = Get-ChildItem *_pre-check.txt # getting the list of files
+        $file_map_pre = @() #map the file name to a new name
+        foreach ($file_pre in $files_pre) {
+            $file_map_pre += @{
+                OldName = $file_pre.Fullname
                 #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| select -First 1)
                 #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| Select-String -pattern '#show version')
                 #NewName = $(Get-Content $file.Fullname| Select-String -pattern '#show version')
                 #NewName = $(Get-childitem -Path *.txt | foreach {Rename-Item $_.fullname $_.name.replace($_.basename,(Get-Content $_ | Select-String -pattern '#show version'))})
-                NewName = Get-Content $file.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_pre-check.txt'}
+                NewName = Get-Content $file_pre.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_pre-check.txt'}
 
             }
         }
-        #converts the name here
-        $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
-        }
+        $file_map_pre | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName } # converts the name here
+}
+
+
 
 function post-check_v3 {
-        #getting the list of files
-        $files = Get-ChildItem *.txt
-        #map the file name to a new name
-        $file_map = @()
-        foreach ($file in $files) {
-            $file_map += @{
-                OldName = $file.Fullname
+        $files_post = Get-ChildItem *_post-check.txt # getting the list of files
+        $file_map_post = @() #map the file name to a new name
+        foreach ($file_post in $files_post) {
+            $file_map_post += @{
+                OldName = $file_post.Fullname
                 #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| select -First 1)
                 #NewName = "{0}.txt" -f $(Get-Content $file.Fullname| Select-String -pattern '#show version')
                 #NewName = $(Get-Content $file.Fullname| Select-String -pattern '#show version')
                 #NewName = $(Get-childitem -Path *.txt | foreach {Rename-Item $_.fullname $_.name.replace($_.basename,(Get-Content $_ | Select-String -pattern '#show version'))})
-                NewName = Get-Content $file.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_post-check.txt'}
+                NewName = Get-Content $file_post.Fullname| select-string '#show version' | Foreach-Object { $_.ToString().split('#')[0]+'_post-check.txt'}
 
             }
         }
-        #converts the name here
-        $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
-        }
+        $file_map_post | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName } # converts the name here
+}
+
+
 
 function collect_per_sites {# this will group pre/post checks per sites
 Get-ChildItem | foreach{ 
