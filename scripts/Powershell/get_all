@@ -50,6 +50,4 @@ Get-ChildItem | foreach{
     mv $_ "$id\$_";}  # Then move the file into the directory (mv is an alias for Move-Item). 
                      # Note that when powershell sees a variable inside a double quoted string, 
                      # it automatically expands its value into the resulting string.
-    #Get-Content *pre-check* | Set-Content " pre-check.txt";  # this append pre checks to one file for WinMerge validation
-    #Get-Content *post-check* | Set-Content "$id post-check.txt";} # this append post checks to one file for WinMerge validation
 }
