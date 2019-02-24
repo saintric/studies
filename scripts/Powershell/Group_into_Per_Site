@@ -13,5 +13,6 @@ Get-ChildItem  | foreach{
 
 
 
-#reference
-#https://superuser.com/questions/348956/powershell-get-inital-character-string-from-file-name-and-create-directory-from
+## reference
+## https://superuser.com/questions/348956/powershell-get-inital-character-string-from-file-name-and-create-directory-from
+## 
