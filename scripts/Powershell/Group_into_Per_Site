@@ -1,5 +1,5 @@
 function group_per_sites {# this will group pre/post checks per sites
-dir | foreach{ 
+Get-ChildItem  | foreach{ 
     $id = $_.Name.SubString(0,5); # Get the id from the first 5 characters. 
                                   # Note that the $_ variable is an automatic variable populated by powershell that represents the current file. 
                                   # The Name property of the object returns a .NET String object which has a SubString member function 
