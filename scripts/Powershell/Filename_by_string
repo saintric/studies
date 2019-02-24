@@ -34,3 +34,7 @@ function post-check_v3 {
         }
         $file_map_post | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName } # converts the name here
 }
+
+##ref
+##https://stackoverflow.com/questions/51029187/renaming-text-files-based-on-the-first-word-in-the-file-in-powershell
+##
