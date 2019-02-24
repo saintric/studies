@@ -1,0 +1,8 @@
+function FileFolders {
+$Folders = Get-Content "[Path where your site lists is located.txt]" # getting the lists of sites here
+foreach ($Folder in $Folders)
+    {
+        $newFolder = Join-Path "[Path where you need the directory located\]" -ChildPath $Folder # in here will be your new sites directories
+        New-Item $newFolder -Type Directory
+        }
+        }
