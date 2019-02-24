@@ -17,3 +17,10 @@ function pre-check_v3 {
         #converts the name here
         $file_map | foreach { Rename-Item -Path $_.OldName -NewName $_.NewName }
         }
+
+
+
+
+## reference
+## https://stackoverflow.com/questions/51029187/renaming-text-files-based-on-the-first-word-in-the-file-in-powershell
+## 
