@@ -1,6 +1,8 @@
 #!usr/bin/env python3
 import webbrowser
-#import os
+import os
+
+os.chdir('C:your PATH here')
 
 #url1 = "https://hangouts.google.com/?authuser=1"
 #url2 = "https://www.messenger.com/login.php?"
@@ -16,7 +18,8 @@ import webbrowser
 #for url in urls:
 #    print (url)
 
-file = open('test_urls.txt', 'r', encoding="ANSI") #lists of all url
+# lists of all url
+file = open('test_urls.txt', 'r', encoding="ANSI") 
 urls = file.readlines()
 for url in urls:
 #    print (url)
