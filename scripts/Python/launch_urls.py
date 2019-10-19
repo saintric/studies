@@ -2,13 +2,11 @@
 import webbrowser
 import os
 
-os.chdir('C:your PATH here')
-
 #url1 = "https://hangouts.google.com/?authuser=1"
 #url2 = "https://www.messenger.com/login.php?"
 #url3 = "https://twitter.com/home"
 #url = "https://www.google.com/"
-#
+os.chdir('C:\\Users\\Saintric\\Desktop\\Python Anaconda')
 #webbrowser.open(url1)
 #webbrowser.open(url2)
 #webbrowser.open(url3)
@@ -17,8 +15,7 @@ os.chdir('C:your PATH here')
 #urls = "test.urls.txt"
 #for url in urls:
 #    print (url)
-
-# lists of all url
+#lists of all url
 file = open('test_urls.txt', 'r', encoding="ANSI") 
 urls = file.readlines()
 for url in urls:
