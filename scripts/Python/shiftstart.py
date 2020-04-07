@@ -5,19 +5,25 @@ import os
 import time
 import webbrowser
 
+os.chdir(br'C:\Users\v909729\Desktop\MyScripts')
+
 # delete Internet Explorer in User Pinned
-pinnedTab = br'C:\Users\user\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Internet Explorer.lnk'
+pinnedTab = br'C:\Users\v909729\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Internet Explorer.lnk'
 try:
     os.unlink(pinnedTab)
 except OSError:
     pass
 
-# opens Default App window
-cmd = 'control /name Microsoft.DefaultPrograms /page pageDefaultProgram'
-os.system(cmd)
+# opens Default App window and closes OneXWrapperApp.exe
+with open('cmd.txt') as cmd:
+    cmds = cmd.read().splitlines()
+for cmd in cmds:
+    try:
+        os.system(cmd)
+    except OSError:
+        pass
 
 # opens work App separately
-os.chdir(br'C:\Users\user\Desktop\MyScripts')
 with open('app.txt') as f:
     apps = f.read().splitlines()
 for app in apps:
@@ -26,7 +32,6 @@ for app in apps:
 time.sleep(10) #wait for 10 seconds
 
 # Opens favorite url to start shift
-# lists of all url
 with open('urls.txt') as f2:
     urls = f2.read().splitlines()
 for url in urls:
