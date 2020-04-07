@@ -5,16 +5,16 @@ import os
 import time
 import webbrowser
 
-os.chdir(br'C:\Users\v909729\Desktop\MyScripts')
+os.chdir(br'C:\Users\Desktop\MyScripts')
 
 # delete Internet Explorer in User Pinned
-pinnedTab = br'C:\Users\v909729\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Internet Explorer.lnk'
+pinnedTab = br'C:\Users\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Internet Explorer.lnk'
 try:
     os.unlink(pinnedTab)
 except OSError:
     pass
 
-# opens Default App window and closes OneXWrapperApp.exe
+# opens Default App window and closes another *.exe
 with open('cmd.txt') as cmd:
     cmds = cmd.read().splitlines()
 for cmd in cmds:
