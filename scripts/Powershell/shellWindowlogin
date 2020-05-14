@@ -1,0 +1,20 @@
+function SecureCRT ()
+{
+Start-Process 'C:\Program Files\VanDyke Software\SecureCRT\SecureCRT.exe'
+$wshell = New-Object -ComObject wscript.shell;
+$wshell.AppActivate('Enter Passphrase')
+Sleep 1
+$wshell.SendKeys('passwd')
+$wshell.SendKeys('{ENTER}')
+Sleep 2
+$wshell.SendKeys('{ENTER}')
+Sleep 3
+$wshell.AppActivate('Keyboard Interactive Authentication')
+$wshell.SendKeys('passwd')
+$wshell.SendKeys('{ENTER}')
+Sleep 1
+$wshell.AppActivate('Keyboard Interactive Authentication')
+$wshell.SendKeys('keys,')
+}
+
+SecureCRT
