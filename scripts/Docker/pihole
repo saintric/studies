@@ -1,0 +1,47 @@
+version: "3"
+
+# based from https://gist.github.com/pkhabazi/51e9049b643d71c025c0d65df5792b3f
+volumes:
+  pihole:
+
+#networks:
+#  my-macvlan-net:
+#    driver: macvlan
+#    name: my-macvlan-net
+#    driver_opts:
+#      parent: eth0
+#    ipam:
+#      config:
+#        - subnet: 10.36.38.0/24
+
+services:
+    # Pihole DNS server
+    pihole:
+      container_name: pihole
+      # domainname: pkm.localhost
+      image: pihole/pihole:latest
+      hostname: pihole
+      networks:
+        # Same name of network defined above
+#        my-macvlan-net:
+#          ipv4_address: 10.36.38.100
+      #mac_address: 00:15:5d:30:df:b7  # Random MAC address (optional)
+      ports:
+        - '0.0.0.0:53:53/tcp'
+        - '0.0.0.0:53:53/udp'
+        - '0.0.0.0:67:67/udp'
+        - '0.0.0.0:8053:80/tcp'
+      environment:
+        TZ: 'Asia/Manila'
+        WEBPASSWORD: A6zyIcN_
+        ServerIP: 10.36.38.100
+        VIRTUAL_PORT: 80
+        DNS1: 127.0.0.1
+        DNS2: 8.8.8.8
+      # Volumes store your data between container upgrades
+      volumes:
+        - ./etc-pihole/:/etc/pihole/
+        - ./etc-dnsmasq.d/:/etc/dnsmasq.d/
+      cap_add:
+        - NET_ADMIN
+      restart: unless-stopped
